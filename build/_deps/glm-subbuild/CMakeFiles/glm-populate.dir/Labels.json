@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glm-subbuild/CMakeFiles/glm-populate"
+		},
+		{
+			"file" : "C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glm-subbuild/CMakeFiles/9275b7b9907d25b42eceb2ac3ddeab50/glm-populate.rule"
+		},
+		{
+			"file" : "C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glm-subbuild/CMakeFiles/844ef96034b5d6584dc82b0e234fa5da/glm-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glm-subbuild/CMakeFiles/7748bb09bb896167c74eda9b3c7a0ae5/glm-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glm-subbuild/CMakeFiles/7748bb09bb896167c74eda9b3c7a0ae5/glm-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glm-subbuild/CMakeFiles/7748bb09bb896167c74eda9b3c7a0ae5/glm-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glm-subbuild/CMakeFiles/7748bb09bb896167c74eda9b3c7a0ae5/glm-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glm-subbuild/CMakeFiles/7748bb09bb896167c74eda9b3c7a0ae5/glm-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glm-subbuild/CMakeFiles/7748bb09bb896167c74eda9b3c7a0ae5/glm-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glm-subbuild/CMakeFiles/7748bb09bb896167c74eda9b3c7a0ae5/glm-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glm-subbuild/CMakeFiles/7748bb09bb896167c74eda9b3c7a0ae5/glm-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"glm-populate"
+		],
+		"name" : "glm-populate"
+	}
+}

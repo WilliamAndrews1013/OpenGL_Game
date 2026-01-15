@@ -1,0 +1,14 @@
+# Target labels
+ glad-populate
+# Source files and their labels
+C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glad-subbuild/CMakeFiles/glad-populate
+C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glad-subbuild/CMakeFiles/9f424d14cb2b948d615a193bcf0c750e/glad-populate.rule
+C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glad-subbuild/CMakeFiles/7e57d283539e8d40f150d4ae6255ad51/glad-populate-complete.rule
+C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glad-subbuild/CMakeFiles/a3483f43973f78632ee9990052a1a8f1/glad-populate-build.rule
+C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glad-subbuild/CMakeFiles/a3483f43973f78632ee9990052a1a8f1/glad-populate-configure.rule
+C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glad-subbuild/CMakeFiles/a3483f43973f78632ee9990052a1a8f1/glad-populate-download.rule
+C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glad-subbuild/CMakeFiles/a3483f43973f78632ee9990052a1a8f1/glad-populate-install.rule
+C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glad-subbuild/CMakeFiles/a3483f43973f78632ee9990052a1a8f1/glad-populate-mkdir.rule
+C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glad-subbuild/CMakeFiles/a3483f43973f78632ee9990052a1a8f1/glad-populate-patch.rule
+C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glad-subbuild/CMakeFiles/a3483f43973f78632ee9990052a1a8f1/glad-populate-test.rule
+C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glad-subbuild/CMakeFiles/a3483f43973f78632ee9990052a1a8f1/glad-populate-update.rule

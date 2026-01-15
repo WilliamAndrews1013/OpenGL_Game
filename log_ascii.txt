@@ -1,0 +1,44 @@
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
+-- Using Win32 for window creation
+cmake : CMake Error 
+at build/_deps/glm-src
+/CMakeLists.txt:1 (cma
+ke_minimum_required):
+At line:1 char:1
++ cmake -S . -B build 
+> cmake_log.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (CMake Erro   
+ r at ...imum_requ    
+ired)::String) []    
+, RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+  Compatibility with 
+CMake < 3.5 has been 
+removed from CMake.
+
+  Update the VERSION 
+argument <min> value. 
+ Or, use the 
+<min>...<max> syntax
+  to tell CMake that 
+the project requires 
+at least <min> but 
+has been updated
+  to work with 
+policies introduced 
+by <max> or earlier.
+
+  Or, add -DCMAKE_POLI
+CY_VERSION_MINIMUM=3.5
+ to try configuring 
+anyway.
+
+
+-- Configuring incomplete, errors occurred!

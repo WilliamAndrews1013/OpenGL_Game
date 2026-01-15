@@ -1,0 +1,10 @@
+^C:\USERS\WILLI\.GEMINI\ANTIGRAVITY\SCRATCH\OPENGL_GAME\BUILD\_DEPS\GLM-SUBBUILD\CMAKEFILES\9275B7B9907D25B42ECEB2AC3DDEAB50\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glm-subbuild -BC:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glm-subbuild --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/willi/.gemini/antigravity/scratch/opengl_game/build/_deps/glm-subbuild/glm-populate.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
