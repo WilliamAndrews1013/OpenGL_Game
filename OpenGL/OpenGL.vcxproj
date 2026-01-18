@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\Users\willi\source\repos\OpenGL_Game\OpenGL\vendor;C:\Users\willi\source\repos\OpenGL_Game\OpenGL\include</IncludePath>
-    <LibraryPath>C:\Users\willi\source\repos\OpenGL_Learning\OpenGL\lib;ws2_32.lib;winmm.lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\willi\source\repos\OpenGL_Game\OpenGL\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>C:\Users\willi\source\repos\OpenGL_Learning\OpenGL\includes</IncludePath>
@@ -114,7 +114,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;enet64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -136,8 +137,7 @@
     <ClCompile Include="src\core\Application.cpp" />
     <ClCompile Include="src\core\Window.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\network\client.c" />
-    <ClCompile Include="src\network\server.c" />
+    <ClCompile Include="src\network\NetworkClient.cpp" />
     <ClCompile Include="vendor\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -145,7 +145,19 @@
     <ClInclude Include="include\Camera.h" />
     <ClInclude Include="include\core\Application.hh" />
     <ClInclude Include="include\core\Window.hh" />
+    <ClInclude Include="include\GameData.h" />
+    <ClInclude Include="include\network\NetworkClient.hh" />
+    <ClInclude Include="include\network\Protocol.h" />
     <ClInclude Include="include\shader_s.h" />
+    <ClInclude Include="vendor\enet\callbacks.h" />
+    <ClInclude Include="vendor\enet\enet.h" />
+    <ClInclude Include="vendor\enet\list.h" />
+    <ClInclude Include="vendor\enet\protocol.h" />
+    <ClInclude Include="vendor\enet\time.h" />
+    <ClInclude Include="vendor\enet\types.h" />
+    <ClInclude Include="vendor\enet\unix.h" />
+    <ClInclude Include="vendor\enet\utility.h" />
+    <ClInclude Include="vendor\enet\win32.h" />
     <ClInclude Include="vendor\glad\gl.h" />
     <ClInclude Include="vendor\glad\glad.h" />
     <ClInclude Include="vendor\GLFW\glfw3.h" />
@@ -161,6 +173,10 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\enet64.lib" />
+    <Library Include="lib\glfw3.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

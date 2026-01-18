@@ -1,17 +1,14 @@
-﻿client.obj : error LNK2005: main already defined in main.obj
-server.obj : error LNK2005: main already defined in main.obj
-client.obj : error LNK2019: unresolved external symbol enet_initialize referenced in function main
-server.obj : error LNK2001: unresolved external symbol enet_initialize
-client.obj : error LNK2019: unresolved external symbol enet_deinitialize referenced in function main
-server.obj : error LNK2001: unresolved external symbol enet_deinitialize
-client.obj : error LNK2019: unresolved external symbol enet_address_set_host referenced in function main
-client.obj : error LNK2019: unresolved external symbol enet_host_create referenced in function main
-server.obj : error LNK2001: unresolved external symbol enet_host_create
-client.obj : error LNK2019: unresolved external symbol enet_host_destroy referenced in function main
-server.obj : error LNK2001: unresolved external symbol enet_host_destroy
-client.obj : error LNK2019: unresolved external symbol enet_host_connect referenced in function main
-client.obj : error LNK2019: unresolved external symbol enet_host_service referenced in function main
-server.obj : error LNK2001: unresolved external symbol enet_host_service
-client.obj : error LNK2019: unresolved external symbol enet_peer_reset referenced in function main
-server.obj : error LNK2019: unresolved external symbol enet_packet_destroy referenced in function main
-C:\Users\willi\source\repos\OpenGL_Game\OpenGL\x64\Debug\OpenGL.exe : fatal error LNK1120: 9 unresolved externals
+﻿  Application.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': macro redefinition
+  (compiling source file 'src/core/Application.cpp')
+      C:\Users\willi\source\repos\OpenGL_Game\OpenGL\vendor\glad\glad.h(32,9):
+      see previous definition of 'APIENTRY'
+  
+  main.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': macro redefinition
+  (compiling source file 'src/main.cpp')
+      C:\Users\willi\source\repos\OpenGL_Game\OpenGL\vendor\glad\glad.h(32,9):
+      see previous definition of 'APIENTRY'
+  
+  Generating Code...
+  OpenGL.vcxproj -> C:\Users\willi\source\repos\OpenGL_Game\OpenGL\x64\Debug\OpenGL.exe
