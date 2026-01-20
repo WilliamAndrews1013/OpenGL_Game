@@ -136,6 +136,7 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="src\core\Application.cpp" />
     <ClCompile Include="src\core\Window.cpp" />
+    <ClCompile Include="src\game\LocalPlayer.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\network\NetworkClient.cpp" />
     <ClCompile Include="vendor\stb_image.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="include\core\Application.hh" />
     <ClInclude Include="include\core\Window.hh" />
     <ClInclude Include="include\GameData.h" />
+    <ClInclude Include="include\game\LocalPlayer.hh" />
     <ClInclude Include="include\network\NetworkClient.hh" />
     <ClInclude Include="include\network\Protocol.h" />
     <ClInclude Include="include\shader_s.h" />

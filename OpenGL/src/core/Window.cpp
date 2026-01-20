@@ -31,6 +31,12 @@ namespace Core {
 		return glfwWindowShouldClose(m_Window);
 	}
 
+	bool Window::IsKeyPressed(int keycode) const
+	{
+		auto state = glfwGetKey(m_Window, keycode);
+		return state == GLFW_PRESS || state == GLFW_REPEAT;
+	}
+
 	void Window::Init(const WindowProps& props)
 	{
 		m_Data.Title = props.Title;

@@ -2,7 +2,7 @@
 
 #include "core/Window.hh"
 #include "network/NetworkClient.hh"
-#include "network/Protocol.h"
+#include "game/LocalPlayer.hh"
 #include <memory>
 #include <vector>
 
@@ -19,6 +19,7 @@ namespace Core {
 	private:
 		std::unique_ptr<Network::NetworkClient> m_NetworkClient;
 		std::unique_ptr<Window> m_Window;
+		std::unique_ptr<Game::LocalPlayer> m_LocalPlayer;
 		std::vector<Player> m_Players;
 		bool m_Running = true;
 		unsigned int m_QuadVAO = 0;

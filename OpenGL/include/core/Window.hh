@@ -29,6 +29,7 @@ namespace Core {
 		GLFWwindow* GetNativeWindow() const { return m_Window; }
 
 		bool ShouldClose() const;
+		bool IsKeyPressed(int keycode) const;
 
 	private:
 		void Init(const WindowProps& props);

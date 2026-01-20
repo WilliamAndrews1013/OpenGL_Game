@@ -31,13 +31,14 @@ namespace Core{
 	Application::Application()
 	{
 		m_Window = std::make_unique<Window>(WindowProps("OpenGL Game Engine", 1024, 768));
-
 		InitRenderer();
 
 		m_NetworkClient = std::make_unique<Network::NetworkClient>();
-		if (m_NetworkClient->Connect("10.0.0.233", 3490)) {
+		if (m_NetworkClient->Connect("10.0.0.188", 3490)) {
 			std::cout << "Connected successfully" << std::endl;
 		}
+
+		m_LocalPlayer = std::make_unique<Game::LocalPlayer>();
 	}
 
 	Application::~Application()
@@ -46,15 +47,28 @@ namespace Core{
 
 	void Application::Run()
 	{
+		// Simple deltaTime calculation
+		float lastFrameTime = 0.0f;
+
 		while (m_Running) {
-			
+
+			float time = (float)glfwGetTime();
+			float deltaTime = time - lastFrameTime;
+			lastFrameTime = time;
+
 			m_NetworkClient->Update(m_Players);
+
+			m_LocalPlayer->HandleInput(m_Window.get(), m_NetworkClient.get(), deltaTime);
 
 			// Render / clear
 			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
+			// Draw Local Player
+			DrawSquare(m_LocalPlayer->GetX(), m_LocalPlayer->GetY(), 50.0f, 0.0f, 1.0f, 0.0f);
+
 			for (const auto& player : m_Players) {
+				// Draw other players
 				DrawSquare(player.x, player.y, 50.0f, player.r, player.g, player.b);
 			}
 

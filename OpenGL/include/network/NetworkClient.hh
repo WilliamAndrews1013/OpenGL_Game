@@ -24,6 +24,7 @@ namespace Network {
 		void Update(std::vector<Player>& playerList);
 
 		void SendPacket(const std::string& message);
+		void SendMovePacket(float x, float y);
 
 		bool IsConnected() const { return m_IsConnected; }
 		ENetHost* GetHost() { return m_ClientHost; }

@@ -15,3 +15,12 @@ typedef struct {
 	float r, g, b;	// Color
 } PacketSpawn;
 #pragma pack(pop)
+
+#pragma pack(push, 1)
+typedef struct {
+	uint8_t type;
+	uint32_t id;
+	float x;
+	float y;
+} PacketMove;
+#pragma pack(pop)

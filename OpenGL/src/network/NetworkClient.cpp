@@ -65,10 +65,10 @@ namespace Network {
 		// Timeout = 0 means NON-BLOCKING. It returns immediately if no packets
 		while (enet_host_service(GetHost(), &event, 0) > 0) {
 			switch (event.type) {
-			/*case ENET_EVENT_TYPE_CONNECT:
+			case ENET_EVENT_TYPE_CONNECT:
 				std::cout << "Connection Succeeded!" << std::endl;
 				m_IsConnected = true;
-				break;*/
+				break;
 			case ENET_EVENT_TYPE_RECEIVE: {
 				std::cout << "Server: " << (char*)event.packet->data << std::endl;
 
@@ -96,6 +96,19 @@ namespace Network {
 					printf("Spawned Player %d\n", newPlayer.id);
 				}
 
+				if (*type == PACKET_MOVE) {
+					PacketMove* packet = (PacketMove*)event.packet->data;
+
+					// Find the player in our list and update
+					for (auto& player : playerList) {
+						if (player.id == packet->id) {
+							player.x = packet->x;
+							player.y = packet->y;
+							break;
+						}
+					}
+				}
+
 				enet_packet_destroy(event.packet);
 				break;
 			}
@@ -114,6 +127,20 @@ namespace Network {
 
 		// Create packet (Flag reliable ensures delivery)
 		ENetPacket* packet = enet_packet_create(message.c_str(), message.length() + 1, ENET_PACKET_FLAG_RELIABLE);
+		enet_peer_send(m_ServerPeer, 0, packet);
+	}
+
+	void NetworkClient::SendMovePacket(float x, float y)
+	{
+		if (!m_IsConnected || !m_ServerPeer) return;
+		PacketMove movePacket;
+		movePacket.type = PACKET_MOVE;
+		movePacket.id = 0;
+		movePacket.x = x;
+		movePacket.y = y;
+
+		ENetPacket* packet = enet_packet_create(&movePacket, sizeof(PacketMove), ENET_PACKET_FLAG_UNSEQUENCED);
+		printf("Sending Move: %f, %f\n", x, y);
 		enet_peer_send(m_ServerPeer, 0, packet);
 	}
 }
