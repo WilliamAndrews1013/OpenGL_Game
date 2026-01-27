@@ -12,6 +12,7 @@ typedef struct {
 	uint32_t id;	// Unique ID for the player
 	float x;
 	float y;
+	float z;
 	float r, g, b;	// Color
 } PacketSpawn;
 #pragma pack(pop)
@@ -22,5 +23,6 @@ typedef struct {
 	uint32_t id;
 	float x;
 	float y;
+	float z;
 } PacketMove;
 #pragma pack(pop)

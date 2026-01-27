@@ -70,7 +70,7 @@ namespace Network {
 				m_IsConnected = true;
 				break;
 			case ENET_EVENT_TYPE_RECEIVE: {
-				std::cout << "Server: " << (char*)event.packet->data << std::endl;
+				printf("Server: ", event.packet->data);
 
 				//TODO: Parse game data here (e.g., Player positions)
 
@@ -130,7 +130,7 @@ namespace Network {
 		enet_peer_send(m_ServerPeer, 0, packet);
 	}
 
-	void NetworkClient::SendMovePacket(float x, float y)
+	void NetworkClient::SendMovePacket(float x, float y, float z)
 	{
 		if (!m_IsConnected || !m_ServerPeer) return;
 		PacketMove movePacket;
@@ -138,9 +138,10 @@ namespace Network {
 		movePacket.id = 0;
 		movePacket.x = x;
 		movePacket.y = y;
+		movePacket.z = z;
 
 		ENetPacket* packet = enet_packet_create(&movePacket, sizeof(PacketMove), ENET_PACKET_FLAG_UNSEQUENCED);
-		printf("Sending Move: %f, %f\n", x, y);
+		printf("Sending Move: %f, %f\n", movePacket.x, movePacket.y);
 		enet_peer_send(m_ServerPeer, 0, packet);
 	}
 }

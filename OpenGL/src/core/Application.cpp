@@ -1,20 +1,18 @@
 #include "Core/Application.hh"
+#include <glm/gtc/type_ptr.hpp>
+
 namespace Core{
-	
+
 	const char* vertexShaderSource = R"(
     #version 330 core
-    layout (location = 0) in vec2 aPos;
+    layout (location = 0) in vec3 aPos;
     
-    uniform vec2 uOffset; // Position of the square
-    uniform vec3 uColor;  // Color of the square
+	uniform mat4 model;
+	uniform mat4 view;
+	uniform mat4 projection;
 
     void main() {
-        // Simple conversion to Normalized Device Coordinates (-1.0 to 1.0)
-        // This assumes a 1024x768 window. You should use a Projection Matrix ideally.
-        float ndcX = (aPos.x + uOffset.x) / 1024.0 * 2.0 - 1.0;
-        float ndcY = (aPos.y + uOffset.y) / 768.0 * 2.0 - 1.0; // Flipped Y depending on camera
-        
-        gl_Position = vec4(ndcX, ndcY, 0.0, 1.0);
+        gl_Position = projection * view * model * vec4(aPos, 1.0);
     }
 	)";
 
@@ -39,6 +37,13 @@ namespace Core{
 		}
 
 		m_LocalPlayer = std::make_unique<Game::LocalPlayer>();
+		m_Camera = std::make_unique<Game::Camera>(glm::vec3(0.0f, 100.0f, 100.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, -45.0f);
+
+		m_TocBoard = std::make_unique<Graphics::Model>();
+		// Make sure you have a .obj file in assets folder
+		if (!m_TocBoard->Load("assets/model/toc_board.obj")) {
+			std::cerr << "Not file exists!" << std::endl;
+		}
 	}
 
 	Application::~Application()
@@ -59,6 +64,26 @@ namespace Core{
 			m_NetworkClient->Update(m_Players);
 
 			m_LocalPlayer->HandleInput(m_Window.get(), m_NetworkClient.get(), deltaTime);
+
+			// Link camera to player
+			if (m_LocalPlayer) {
+				// Set Position
+				glm::vec3 offset = glm::vec3(0.0f, 100.0f, 100.0f);
+				m_Camera->Position = m_LocalPlayer->GetPosition() + offset;
+
+				// Set Direction
+				glm::vec3 direction = m_LocalPlayer->GetPosition() - m_Camera->Position;
+				m_Camera->Front = glm::normalize(direction);
+			}
+
+			// Pass the calculated view matrix to your shader'
+			glUseProgram(m_ShaderProgram);
+			
+			glm::mat4 view = m_Camera->GetViewMatrix();
+			glUniformMatrix4fv(glGetUniformLocation(m_ShaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(view));
+			
+			glm::mat4 projection = glm::perspective(glm::radians(m_Camera->Zoom), 1024.0f / 768.0f, 0.1f, 1000.0f);
+			glUniformMatrix4fv(glGetUniformLocation(m_ShaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
 			// Render / clear
 			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);

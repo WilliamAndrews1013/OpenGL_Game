@@ -3,6 +3,8 @@
 #include "core/Window.hh"
 #include "network/NetworkClient.hh"
 #include "game/LocalPlayer.hh"
+#include "graphics/Model.h"
+#include "game/Camera.h"
 #include <memory>
 #include <vector>
 
@@ -20,6 +22,8 @@ namespace Core {
 		std::unique_ptr<Network::NetworkClient> m_NetworkClient;
 		std::unique_ptr<Window> m_Window;
 		std::unique_ptr<Game::LocalPlayer> m_LocalPlayer;
+		std::unique_ptr<Graphics::Model> m_TocBoard;
+		std::unique_ptr<Game::Camera> m_Camera;
 		std::vector<Player> m_Players;
 		bool m_Running = true;
 		unsigned int m_QuadVAO = 0;
@@ -29,7 +33,7 @@ namespace Core {
 		void InitRenderer();
 		void DrawSquare(float x, float y, float size, float r, float g, float b);
 	};
-
+	
 	// To be defined in CLIENT
 	Application* CreateApplication();
 }

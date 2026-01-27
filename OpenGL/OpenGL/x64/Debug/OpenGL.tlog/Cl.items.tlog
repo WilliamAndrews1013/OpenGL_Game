@@ -2,6 +2,8 @@ C:\Users\willi\source\repos\OpenGL_Game\OpenGL\glad.c;C:\Users\willi\source\repo
 C:\Users\willi\source\repos\OpenGL_Game\OpenGL\src\core\Application.cpp;C:\Users\willi\source\repos\OpenGL_Game\OpenGL\OpenGL\x64\Debug\Application.obj
 C:\Users\willi\source\repos\OpenGL_Game\OpenGL\src\core\Window.cpp;C:\Users\willi\source\repos\OpenGL_Game\OpenGL\OpenGL\x64\Debug\Window.obj
 C:\Users\willi\source\repos\OpenGL_Game\OpenGL\src\game\LocalPlayer.cpp;C:\Users\willi\source\repos\OpenGL_Game\OpenGL\OpenGL\x64\Debug\LocalPlayer.obj
+C:\Users\willi\source\repos\OpenGL_Game\OpenGL\src\graphics\Model.cpp;C:\Users\willi\source\repos\OpenGL_Game\OpenGL\OpenGL\x64\Debug\Model.obj
 C:\Users\willi\source\repos\OpenGL_Game\OpenGL\src\main.cpp;C:\Users\willi\source\repos\OpenGL_Game\OpenGL\OpenGL\x64\Debug\main.obj
 C:\Users\willi\source\repos\OpenGL_Game\OpenGL\src\network\NetworkClient.cpp;C:\Users\willi\source\repos\OpenGL_Game\OpenGL\OpenGL\x64\Debug\NetworkClient.obj
+C:\Users\willi\source\repos\OpenGL_Game\OpenGL\vendor\glm\detail\glm.cpp;C:\Users\willi\source\repos\OpenGL_Game\OpenGL\OpenGL\x64\Debug\glm.obj
 C:\Users\willi\source\repos\OpenGL_Game\OpenGL\vendor\stb_image.cpp;C:\Users\willi\source\repos\OpenGL_Game\OpenGL\OpenGL\x64\Debug\stb_image.obj
