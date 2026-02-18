@@ -1,0 +1,56 @@
+#include <gtest/gtest.h>
+#include "ecs/Registry.hh"
+
+using namespace ECS;
+
+struct Position {
+    float x, y;
+};
+
+struct Velocity {
+    float dx, dy;
+};
+
+// Test GetComponentID indirectly through AddComponent
+TEST(RegistryTest, ComponentTypeIDsWorkCorrectly) {
+    Registry registry;
+    
+    // Create entity and add components
+    auto entity = registry.CreateEntity();
+    
+    // These will internally call GetComponentID
+    registry.AddComponent(entity, Position{1.0f, 2.0f});
+    registry.AddComponent(entity, Velocity{3.0f, 4.0f});
+    
+    // Both components should exist
+    EXPECT_TRUE(registry.HasComponent<Position>(entity));
+    EXPECT_TRUE(registry.HasComponent<Velocity>(entity));
+    
+    // Retrieve and verify
+    auto* pos = registry.GetComponent<Position>(entity);
+    ASSERT_NE(pos, nullptr);
+    EXPECT_FLOAT_EQ(pos->x, 1.0f);
+    
+    auto* vel = registry.GetComponent<Velocity>(entity);
+    ASSERT_NE(vel, nullptr);
+    EXPECT_FLOAT_EQ(vel->dx, 3.0f);
+}
+
+// Test that we can add same component type to different entities
+TEST(RegistryTest, SameComponentTypeDifferentEntities) {
+    Registry registry;
+    
+    auto e1 = registry.CreateEntity();
+    auto e2 = registry.CreateEntity();
+    
+    registry.AddComponent(e1, Position{1.0f, 1.0f});
+    registry.AddComponent(e2, Position{2.0f, 2.0f});
+    
+    EXPECT_FLOAT_EQ(registry.GetComponent<Position>(e1)->x, 1.0f);
+    EXPECT_FLOAT_EQ(registry.GetComponent<Position>(e2)->x, 2.0f);
+}
+
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}

@@ -1,0 +1,49 @@
+#include <gtest/gtest.h>
+#include "ecs/Registry.hh"
+
+using namespace ECS;
+
+struct Position {
+    float x, y;
+};
+
+struct Velocity {
+    float dx, dy;
+};
+
+TEST(RegistryTest, GetComponentIDConsistency) {
+    Registry registry;
+    
+    // Same type should return same ID
+    ComponentID id1 = registry.GetComponentID<Position>();
+    ComponentID id2 = registry.GetComponentID<Position>();
+    EXPECT_EQ(id1, id2);
+}
+
+TEST(RegistryTest, GetComponentIDDifferentTypes) {
+    Registry registry;
+    
+    // Different types should get different IDs
+    ComponentID posID = registry.GetComponentID<Position>();
+    ComponentID velID = registry.GetComponentID<Velocity>();
+    
+    EXPECT_NE(posID, velID);
+    EXPECT_LT(posID, MAX_COMPONENTS);
+    EXPECT_LT(velID, MAX_COMPONENTS);
+}
+
+TEST(RegistryTest, GetComponentIDSequential) {
+    Registry registry;
+    
+    // Should assign IDs sequentially starting from 0
+    ComponentID posID = registry.GetComponentID<Position>();
+    ComponentID velID = registry.GetComponentID<Velocity>();
+    
+    EXPECT_EQ(posID, 0);
+    EXPECT_EQ(velID, 1);
+}
+
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}

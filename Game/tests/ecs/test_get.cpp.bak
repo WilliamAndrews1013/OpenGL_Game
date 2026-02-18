@@ -1,0 +1,49 @@
+#include <gtest/gtest.h>
+#include "ecs/ComponentPool.hh"
+
+using namespace ECS;
+
+struct TestComponent {
+    int value;
+    float data;
+};
+
+TEST(ComponentPoolTest, GetExistingComponent) {
+    ComponentPool<TestComponent> pool;
+    
+    // Add component for entity 5
+    pool.Add(5, TestComponent{42, 3.14f});
+    
+    // Try to get it back
+    TestComponent* comp = pool.Get(5);
+    ASSERT_NE(comp, nullptr);  // Should not be null
+    EXPECT_EQ(comp->value, 42);
+    EXPECT_FLOAT_EQ(comp->data, 3.14f);
+}
+
+TEST(ComponentPoolTest, GetNonExistentComponent) {
+    ComponentPool<TestComponent> pool;
+    
+    // Try to get component that doesn't exist
+    TestComponent* comp = pool.Get(999);
+    EXPECT_EQ(comp, nullptr);  // Should be null
+}
+
+TEST(ComponentPoolTest, GetMultipleEntities) {
+    ComponentPool<TestComponent> pool;
+    
+    // Add components with non-consecutive entity IDs
+    pool.Add(100, TestComponent{1, 1.0f});
+    pool.Add(50, TestComponent{2, 2.0f});
+    pool.Add(200, TestComponent{3, 3.0f});
+    
+    // Get them back - should work even though entity IDs are not sequential
+    EXPECT_EQ(pool.Get(100)->value, 1);
+    EXPECT_EQ(pool.Get(50)->value, 2);
+    EXPECT_EQ(pool.Get(200)->value, 3);
+}
+
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}

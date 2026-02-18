@@ -1,0 +1,72 @@
+#include <gtest/gtest.h>
+#include "ecs/ComponentPool.hh"
+
+using namespace ECS;
+
+struct TestComponent {
+    int value;
+    float data;
+};
+
+TEST(ComponentPoolTest, RemoveLastElement) {
+    ComponentPool<TestComponent> pool;
+    
+    pool.Add(0, TestComponent{1, 1.0f});
+    EXPECT_EQ(pool.Size(), 1);
+    
+    pool.Remove(0);
+    EXPECT_EQ(pool.Size(), 0);
+    EXPECT_FALSE(pool.Has(0));
+}
+
+TEST(ComponentPoolTest, RemoveMiddleElement) {
+    ComponentPool<TestComponent> pool;
+    
+    pool.Add(0, TestComponent{1, 1.0f});
+    pool.Add(5, TestComponent{2, 2.0f});
+    pool.Add(10, TestComponent{3, 3.0f});
+    
+    EXPECT_EQ(pool.Size(), 3);
+    
+    // Remove middle one
+    pool.Remove(5);
+    
+    EXPECT_EQ(pool.Size(), 2);
+    EXPECT_FALSE(pool.Has(5));
+    
+    // Check remaining are still accessible
+    EXPECT_TRUE(pool.Has(0));
+    EXPECT_TRUE(pool.Has(10));
+    EXPECT_EQ(pool.Get(0)->value, 1);
+    EXPECT_EQ(pool.Get(10)->value, 3);
+}
+
+TEST(ComponentPoolTest, RemoveNonExistent) {
+    ComponentPool<TestComponent> pool;
+    
+    pool.Add(0, TestComponent{1, 1.0f});
+    
+    // Should not crash
+    pool.Remove(999);
+    
+    EXPECT_EQ(pool.Size(), 1);
+    EXPECT_TRUE(pool.Has(0));
+}
+
+TEST(ComponentPoolTest, RemoveThenAddAgain) {
+    ComponentPool<TestComponent> pool;
+    
+    pool.Add(0, TestComponent{1, 1.0f});
+    pool.Remove(0);
+    
+    // Should be able to add to same entity again
+    pool.Add(0, TestComponent{42, 3.14f});
+    
+    EXPECT_EQ(pool.Size(), 1);
+    EXPECT_EQ(pool.Get(0)->value, 42);
+}
+
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}

@@ -1,0 +1,88 @@
+#include <gtest/gtest.h>
+#include "ecs/ComponentPool.hh"
+
+using namespace ECS;
+
+struct TestComponent {
+    int value;
+    float data;
+};
+
+// Test Add() and Get() together
+TEST(ComponentPoolTest, AddAndGet) {
+    ComponentPool<TestComponent> pool;
+    
+    // Add component
+    auto& added = pool.Add(5, TestComponent{42, 3.14f});
+    EXPECT_EQ(added.value, 42);
+    
+    // Get it back
+    TestComponent* retrieved = pool.Get(5);
+    ASSERT_NE(retrieved, nullptr);
+    EXPECT_EQ(retrieved->value, 42);
+    EXPECT_FLOAT_EQ(retrieved->data, 3.14f);
+    
+    // Modify through pointer
+    retrieved->value = 100;
+    
+    // Verify modification
+    EXPECT_EQ(pool.Get(5)->value, 100);
+}
+
+// Test Has()
+TEST(ComponentPoolTest, HasComponent) {
+    ComponentPool<TestComponent> pool;
+    
+    EXPECT_FALSE(pool.Has(0));
+    
+    pool.Add(0, TestComponent{1, 1.0f});
+    EXPECT_TRUE(pool.Has(0));
+    EXPECT_FALSE(pool.Has(1));
+}
+
+// Test Size()
+TEST(ComponentPoolTest, SizeTracking) {
+    ComponentPool<TestComponent> pool;
+    
+    EXPECT_EQ(pool.Size(), 0);
+    
+    pool.Add(0, TestComponent{1, 1.0f});
+    EXPECT_EQ(pool.Size(), 1);
+    
+    pool.Add(5, TestComponent{2, 2.0f});
+    EXPECT_EQ(pool.Size(), 2);
+}
+
+// Test iteration
+TEST(ComponentPoolTest, DenseArrayIteration) {
+    ComponentPool<TestComponent> pool;
+    
+    pool.Add(0, TestComponent{1, 1.0f});
+    pool.Add(5, TestComponent{2, 2.0f});
+    pool.Add(10, TestComponent{3, 3.0f});
+    
+    int sum = 0;
+    for (auto& comp : pool) {
+        sum += comp.value;
+    }
+    EXPECT_EQ(sum, 6);
+    EXPECT_EQ(pool.Size(), 3);
+}
+
+// Test non-sequential entity IDs
+TEST(ComponentPoolTest, NonSequentialEntities) {
+    ComponentPool<TestComponent> pool;
+    
+    pool.Add(100, TestComponent{1, 1.0f});
+    pool.Add(50, TestComponent{2, 2.0f});
+    pool.Add(999, TestComponent{3, 3.0f});
+    
+    EXPECT_EQ(pool.Get(100)->value, 1);
+    EXPECT_EQ(pool.Get(50)->value, 2);
+    EXPECT_EQ(pool.Get(999)->value, 3);
+}
+
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
