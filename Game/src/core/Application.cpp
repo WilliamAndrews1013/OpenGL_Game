@@ -43,6 +43,7 @@ namespace Core{
 		m_RenderSystem = std::make_unique<Game::RenderSystem>(m_ModelShader.get(), m_Camera.get());
 		m_InputSystem = std::make_unique<Game::InputSystem>(m_Window.get());
 		m_CameraSystem = std::make_unique<Game::CameraSystem>(m_Camera.get());
+    m_PlayerControllerSystem = std::make_unique<Game::PlayerControllerSystem>();
 	}
 
 	Application::~Application()
@@ -77,6 +78,7 @@ namespace Core{
 
 			// Update ECS Systems (in order: Input -> Camera -> Render)
 			m_InputSystem->Update(*m_Registry, deltaTime);
+      m_PlayerControllerSystem->Update(*m_Registry, deltaTime);
 			m_CameraSystem->Update(*m_Registry, deltaTime);
 			m_RenderSystem->Update(*m_Registry, deltaTime);
 

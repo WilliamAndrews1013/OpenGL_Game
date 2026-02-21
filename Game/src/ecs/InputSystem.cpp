@@ -36,5 +36,6 @@ namespace Game {
     // Sotre mouse delta and move inputs
     controller->lookInput = glm::vec2(deltaX, -deltaY);
     controller->moveInput = moveInput;
+    if (m_Window->IsKeyPressed(GLFW_KEY_SPACE)) { controller->jumpRequested = true; }
   }
 }

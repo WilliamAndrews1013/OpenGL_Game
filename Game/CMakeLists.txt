@@ -36,6 +36,7 @@ set(CORE_SOURCES
     src/ecs/RenderSystem.cpp
     src/ecs/InputSystem.cpp
     src/ecs/CameraSystem.cpp
+    src/ecs/PlayerControllerSystem.cpp
 )
 
 # Vendor sources
@@ -60,10 +61,10 @@ target_include_directories(GameCore PUBLIC
     vendor/imgui/backends
 )
 
-target_link_libraries(GameCore PUBLIC 
-    glfw 
-    enet 
-    assimp::assimp 
+target_link_libraries(GameCore PUBLIC
+    glfw
+    enet
+    assimp::assimp
     OpenGL::GL
 )
 
@@ -79,7 +80,7 @@ else()
 endif()
 
 # Game executable
-add_executable(GameProject 
+add_executable(GameProject
     src/main.cpp
     ${VENDOR_SOURCES}
 )
@@ -91,7 +92,7 @@ target_include_directories(GameProject PRIVATE
     vendor/imgui/backends
 )
 
-target_link_libraries(GameProject PRIVATE 
+target_link_libraries(GameProject PRIVATE
     GameCore
 )
 

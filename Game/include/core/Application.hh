@@ -8,6 +8,7 @@
 #include "ecs/RenderSystem.hh"
 #include "ecs/InputSystem.hh"
 #include "ecs/CameraSystem.hh"
+#include "ecs/PlayerControllerSystem.hh"
 #include <memory>
 
 namespace Core {
@@ -29,6 +30,7 @@ namespace Core {
 		std::unique_ptr<Game::RenderSystem>m_RenderSystem;
 		std::unique_ptr<Game::InputSystem>m_InputSystem;
 		std::unique_ptr<Game::CameraSystem>m_CameraSystem;
+    std::unique_ptr<Game::PlayerControllerSystem>m_PlayerControllerSystem;
 		bool m_Running = true;
 
 		void InitRenderer();

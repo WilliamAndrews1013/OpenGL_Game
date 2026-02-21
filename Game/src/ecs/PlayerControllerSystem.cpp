@@ -10,9 +10,7 @@ namespace Game {
   // STEP 0: Constructor Implementation
   // ============================================
   // TODO: Implement simple constructor
-  // PlayerControllerSystem::PlayerControllerSystem() {
-  //   // Nothing special needed here
-  // }
+  PlayerControllerSystem::PlayerControllerSystem() {}
 
   // ============================================
   // MAIN UPDATE FUNCTION
@@ -26,21 +24,25 @@ namespace Game {
     //   - TransformComponent (to update position/rotation)
     //   - PlayerControllerComponent (to read input values)
     // HINT: auto entities = registry.Query<Game::TransformComponent, Game::PlayerControllerComponent>();
-
+    auto entities = registry.Query<Game::TransformComponent, Game::PlayerControllerComponent>();
     // TODO: Check if entities vector is empty - if so, return early
     // (no player to control)
+    if (entities.empty()) return;
 
     // TODO: Get the first entity (we assume single player for now)
     // auto entity = entities[0];
+    auto entity = entities[0];
 
     // ==========================================
     // STEP 2: Get component pointers
     // ==========================================
     // TODO: Get pointer to TransformComponent
     // HINT: auto* transform = registry.GetComponent<Game::TransformComponent>(entity);
+    auto* transform = registry.GetComponent<Game::TransformComponent>(entity);
 
     // TODO: Get pointer to PlayerControllerComponent
     // HINT: auto* controller = registry.GetComponent<Game::PlayerControllerComponent>(entity);
+    auto* controller = registry.GetComponent<Game::PlayerControllerComponent>(entity);
 
     // ==========================================
     // STEP 3: Apply mouse look (rotation)
@@ -48,29 +50,36 @@ namespace Game {
     // TODO: Update YAW (horizontal rotation around Y axis)
     //   transform->rotation.y += controller->lookInput.x * controller->lookSensitivity;
     // This makes mouse X control looking left/right
+    transform->rotation.y += controller->lookInput.x * controller->lookSensitivity;
 
     // TODO: Update PITCH (vertical rotation around X axis)
     //   transform->rotation.x += controller->lookInput.y * controller->lookSensitivity;
     // This makes mouse Y control looking up/down
+    transform->rotation.x += controller->lookInput.y * controller->lookSensitivity;
+
 
     // TODO: Clamp pitch to prevent camera flipping
     //   transform->rotation.x = glm::clamp(transform->rotation.x, -89.0f, 89.0f);
     // Without this, looking straight up/down breaks the camera
+    transform->rotation.x = glm::clamp(transform->rotation.x, -89.0f, 89.0f);
 
     // ==========================================
     // STEP 4: Calculate movement vectors
     // ==========================================
     // TODO: Convert yaw rotation to radians for trig functions
     //   float yaw = glm::radians(transform->rotation.y);
+    float yaw = glm::radians(transform->rotation.y);
 
     // TODO: Calculate FORWARD direction (where player is facing, flattened to XZ plane)
     //   glm::vec3 forward = glm::vec3(sin(yaw), 0.0f, cos(yaw));
     // This creates a unit vector pointing in the facing direction
     // Y is 0 because we move on the ground (no flying yet)
+    glm::vec3 forward = glm::vec3(sin(yaw), 0.0f, cos(yaw));
 
     // TODO: Calculate RIGHT direction (perpendicular to forward)
     //   glm::vec3 right = glm::vec3(cos(yaw), 0.0f, -sin(yaw));
     // This is 90 degrees rotated from forward
+    glm::vec3 right = glm::vec3(cos(yaw), 0.0f, -sin(yaw));
 
     // ==========================================
     // STEP 5: Apply horizontal movement
@@ -81,11 +90,14 @@ namespace Game {
     //                        controller->moveSpeed * deltaTime;
     // moveInput.y is W/S (forward/back), moveInput.x is A/D (left/right)
     // Multiply by speed and deltaTime for frame-rate independent movement
+    glm::vec3 movement = (forward * controller->moveInput.y + right * controller->moveInput.x) * controller->moveSpeed * deltaTime;
 
     // TODO: Update position X and Z coordinates
     //   transform->position.x += movement.x;
     //   transform->position.z += movement.z;
     // Don't touch Y here - that's handled by gravity!
+    transform->position.x += movement.x;
+    transform->position.z += movement.z;
 
     // ==========================================
     // STEP 6: Handle jumping
@@ -97,6 +109,11 @@ namespace Game {
     //     controller->jumpRequested = false;                     // Reset flag
     //   }
     // Note: jumpRequested is set by InputSystem when Space is pressed
+    if (controller->jumpRequested && controller->isGrounded) {
+      controller->verticalVelocity = controller->jumpForce;
+      controller->isGrounded = false;
+      controller->jumpRequested = false;
+    }
 
     // ==========================================
     // STEP 7: Apply gravity
@@ -112,7 +129,10 @@ namespace Game {
     //     transform->position.y += controller->verticalVelocity * deltaTime;
     // This makes the player fall
     //   }
-
+    if (!controller->isGrounded) {
+      controller->verticalVelocity += controller->gravity * deltaTime;
+      transform->position.y += controller->verticalVelocity * deltaTime;
+    }
     // ==========================================
     // STEP 8: Ground detection (simple version)
     // ==========================================
@@ -124,6 +144,11 @@ namespace Game {
     //   }
     // This is a placeholder - we'll replace with ray casting later!
     // For now, ground is just a flat plane at y = cameraHeight (1.7)
+    if (transform->position.y <= controller->cameraHeight) {
+      transform->position.y = controller->cameraHeight;
+      controller->verticalVelocity = 0.0f;
+      controller->isGrounded = true;
+    }
 
     // ==========================================
     // BONUS: Optional improvements
