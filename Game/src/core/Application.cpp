@@ -3,6 +3,7 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+#include "events/EventManager.hh"
 
 namespace Core{
 	Application::Application()
@@ -43,11 +44,13 @@ namespace Core{
 		m_RenderSystem = std::make_unique<Game::RenderSystem>(m_ModelShader.get(), m_Camera.get());
 		m_InputSystem = std::make_unique<Game::InputSystem>(m_Window.get());
 		m_CameraSystem = std::make_unique<Game::CameraSystem>(m_Camera.get());
-    m_PlayerControllerSystem = std::make_unique<Game::PlayerControllerSystem>();
+    	m_PlayerControllerSystem = std::make_unique<Game::PlayerControllerSystem>();
 	}
 
 	Application::~Application()
 	{
+		Events::gEventManager.Shutdown();
+
 		// Cleanup ImGui
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
@@ -78,8 +81,9 @@ namespace Core{
 
 			// Update ECS Systems (in order: Input -> Camera -> Render)
 			m_InputSystem->Update(*m_Registry, deltaTime);
-      m_PlayerControllerSystem->Update(*m_Registry, deltaTime);
+      		m_PlayerControllerSystem->Update(*m_Registry, deltaTime);
 			m_CameraSystem->Update(*m_Registry, deltaTime);
+			Events::gEventManager.DispatchEvents();
 			m_RenderSystem->Update(*m_Registry, deltaTime);
 
 			// Render ImGui over game

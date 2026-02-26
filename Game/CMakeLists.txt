@@ -37,6 +37,7 @@ set(CORE_SOURCES
     src/ecs/InputSystem.cpp
     src/ecs/CameraSystem.cpp
     src/ecs/PlayerControllerSystem.cpp
+    src/events/EventManager.cpp
 )
 
 # Vendor sources
