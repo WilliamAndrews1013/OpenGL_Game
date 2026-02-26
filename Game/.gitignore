@@ -77,3 +77,5 @@ imgui.ini
 
 # Logs
 *.log
+
+.cache/
